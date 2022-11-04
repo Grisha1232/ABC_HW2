@@ -1,4 +1,3 @@
-	.file	"main.c"
 	.intel_syntax noprefix
 	.text
 	.section	.rodata
@@ -7,6 +6,7 @@
 	.text
 	.globl	inputFromConsole
 	.type	inputFromConsole, @function
+	
 inputFromConsole:
 	push	rbp
 	mov	rbp, rsp
@@ -37,6 +37,7 @@ inputFromConsole:
 	.text
 	.globl	inputFromFile
 	.type	inputFromFile, @function
+	
 inputFromFile:
 	push	rbp
 	mov	rbp, rsp
@@ -83,6 +84,7 @@ inputFromFile:
 	.text
 	.globl	outputToFile
 	.type	outputToFile, @function
+	
 outputToFile:
 	push	rbp
 	mov	rbp, rsp
@@ -115,6 +117,7 @@ outputToFile:
 	.text
 	.globl	randomInput
 	.type	randomInput, @function
+	
 randomInput:
 	push	rbp
 	mov	rbp, rsp
@@ -270,5 +273,3 @@ main:
 	leave
 	ret
 	.size	main, .-main
-	.ident	"GCC: (Debian 11.3.0-5) 11.3.0"
-	.section	.note.GNU-stack,"",@progbits
