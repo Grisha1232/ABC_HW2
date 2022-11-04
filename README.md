@@ -13,3 +13,12 @@
 ```
 ./program.exe input.txt output.txt
 ```
+
+## Отчет на 4 балла:
+
+**Приведено решение задачи на С:**
+[main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)
+[checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/checkFunc.c)
+
+**Ассемблер: **
+
