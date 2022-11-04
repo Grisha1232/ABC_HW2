@@ -134,6 +134,8 @@ outputToFile:
 	.size	outputToFile, .-outputToFile
 	.section	.rodata
 .LC4:
+	.string	"Length of the string: %d"
+.LC5:
 	.string	"Result rand string: "
 	.text
 	.globl	randomInput
@@ -148,52 +150,76 @@ randomInput:
 	.cfi_def_cfa_register 6
 	subq	$32, %rsp
 	movq	%rdi, -24(%rbp)
-	movl	$10, %edi
+	movl	$0, %edi
+	call	time@PLT
+	movl	%eax, %edi
 	call	srand@PLT
-	movl	$0, -4(%rbp)
 	call	rand@PLT
 	movslq	%eax, %rdx
-	imulq	$1759218605, %rdx, %rdx
+	imulq	$274877907, %rdx, %rdx
 	shrq	$32, %rdx
-	sarl	$12, %edx
+	sarl	$6, %edx
 	movl	%eax, %ecx
 	sarl	$31, %ecx
 	subl	%ecx, %edx
-	movl	%edx, -12(%rbp)
-	movl	-12(%rbp), %edx
-	imull	$10000, %edx, %edx
+	movl	%edx, -8(%rbp)
+	movl	-8(%rbp), %edx
+	imull	$1000, %edx, %edx
 	subl	%edx, %eax
-	movl	%eax, -12(%rbp)
+	movl	%eax, -8(%rbp)
+	movl	-8(%rbp), %eax
+	movl	%eax, %esi
 	leaq	.LC4(%rip), %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	movl	$0, -8(%rbp)
+	leaq	.LC5(%rip), %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	$0, -4(%rbp)
 	jmp	.L8
 .L10:
 	call	rand@PLT
-	cltd
-	shrl	$25, %edx
-	addl	%edx, %eax
-	andl	$127, %eax
-	subl	%edx, %eax
-	movb	%al, -13(%rbp)
-	movsbl	-13(%rbp), %eax
+	movl	%eax, %edx
+	movslq	%edx, %rax
+	imulq	$715827883, %rax, %rax
+	shrq	$32, %rax
+	sarl	$4, %eax
+	movl	%edx, %esi
+	sarl	$31, %esi
+	subl	%esi, %eax
+	movl	%eax, %ecx
+	movl	%ecx, %eax
+	addl	%eax, %eax
+	addl	%ecx, %eax
+	sall	$5, %eax
+	movl	%edx, %ecx
+	subl	%eax, %ecx
+	movl	%ecx, %eax
+	addl	$32, %eax
+	movb	%al, -9(%rbp)
+	movsbl	-9(%rbp), %eax
 	movl	%eax, %edi
 	call	putchar@PLT
-	movsbl	-13(%rbp), %eax
+	movsbl	-9(%rbp), %eax
 	movl	%eax, %edi
 	call	isPunctuationMark@PLT
 	testl	%eax, %eax
 	je	.L9
-	addl	$1, -4(%rbp)
+	movq	-24(%rbp), %rax
+	movl	(%rax), %eax
+	leal	1(%rax), %edx
+	movq	-24(%rbp), %rax
+	movl	%edx, (%rax)
 .L9:
-	addl	$1, -8(%rbp)
+	addl	$1, -4(%rbp)
 .L8:
-	movl	-8(%rbp), %eax
-	cmpl	-12(%rbp), %eax
-	jl	.L10
 	movl	-4(%rbp), %eax
+	cmpl	-8(%rbp), %eax
+	jl	.L10
+	nop
+	nop
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -201,8 +227,11 @@ randomInput:
 .LFE9:
 	.size	randomInput, .-randomInput
 	.section	.rodata
-.LC5:
+.LC6:
 	.string	"Incorrect input"
+	.align 8
+.LC7:
+	.string	"\nNumber of punctuation marks in string: %d"
 	.text
 	.globl	main
 	.type	main, @function
@@ -217,11 +246,11 @@ main:
 	subq	$48, %rsp
 	movl	%edi, -36(%rbp)		# argc
 	movq	%rsi, -48(%rbp)		# argv
-	movl	$0, -8(%rbp)		# int result
-	movq	$0, -16(%rbp)		# char* string
-	movq	$0, -24(%rbp)		# size_t length
-	cmpl	$1, -36(%rbp)		
-	jne	.L13
+	movl	$0, -8(%rbp)		# int result = 0
+	movq	$0, -16(%rbp)		# char* string = NULL
+	movq	$0, -24(%rbp)		# size_t length = 0
+	cmpl	$1, -36(%rbp)
+	jne	.L12
 	leaq	-24(%rbp), %rdx
 	leaq	-16(%rbp), %rax
 	movq	%rdx, %rsi
@@ -229,20 +258,20 @@ main:
 	call	inputFromConsole
 	movq	-24(%rbp), %rax
 	cmpq	$1, %rax
-	ja	.L14
-	leaq	.LC5(%rip), %rax
+	ja	.L13
+	leaq	.LC6(%rip), %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movl	$-1, %eax
-	jmp	.L21
-.L14:
+	jmp	.L20
+.L13:
 	movq	-24(%rbp), %rax
 	subq	$1, %rax
 	movq	%rax, -24(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	.L16
-.L18:
+	jmp	.L15
+.L17:
 	movq	-16(%rbp), %rdx
 	movl	-4(%rbp), %eax
 	cltq
@@ -252,41 +281,41 @@ main:
 	movl	%eax, %edi
 	call	isPunctuationMark@PLT
 	testl	%eax, %eax
-	je	.L17
+	je	.L16
 	movl	-8(%rbp), %eax
 	addl	$1, %eax
 	movl	%eax, -8(%rbp)
-.L17:
-	addl	$1, -4(%rbp)
 .L16:
+	addl	$1, -4(%rbp)
+.L15:
 	movl	-4(%rbp), %eax
 	movslq	%eax, %rdx
 	movq	-24(%rbp), %rax
 	cmpq	%rax, %rdx
-	jb	.L18
+	jb	.L17
 	movl	-8(%rbp), %eax
 	movl	%eax, %esi
 	leaq	.LC3(%rip), %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	jmp	.L19
-.L13:
+	jmp	.L18
+.L12:
 	cmpl	$2, -36(%rbp)
-	jne	.L20
+	jne	.L19
 	leaq	-8(%rbp), %rax
 	movq	%rax, %rdi
 	call	randomInput
 	movl	-8(%rbp), %eax
 	movl	%eax, %esi
-	leaq	.LC3(%rip), %rax
+	leaq	.LC7(%rip), %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	jmp	.L19
-.L20:
+	jmp	.L18
+.L19:
 	cmpl	$3, -36(%rbp)
-	jne	.L19
+	jne	.L18
 	movq	-48(%rbp), %rax
 	addq	$8, %rax
 	movq	(%rax), %rax
@@ -300,9 +329,9 @@ main:
 	movl	%edx, %esi
 	movq	%rax, %rdi
 	call	outputToFile
-.L19:
+.L18:
 	movl	$0, %eax
-.L21:
+.L20:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
