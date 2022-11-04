@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "checkFunc.c"
+
 int randomInput(int* result) {
     srand(NULL);
     int count = 0;
