@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 extern int isPunctuationMark(const char c);
 
@@ -29,19 +30,18 @@ void outputToFile(char* out, const int result) {
     fclose(output);
 }
 
-int randomInput(int* result) {
-    srand(10);
-    int count = 0;
-    int length = rand() % 10000;
+void randomInput(int* result) {
+    srand(time(NULL));
+    int length = rand() % 1000;
+    printf("Length of the string: %d", length);
     printf("Result rand string: ");
     for (int i = 0; i < length; i++) {
-        char c = rand() % 128;
+        char c = rand() % 96 + 32;
         printf("%c", c);
         if (isPunctuationMark(c)) {
-            count++;
+            (*result)++;
         }
     }
-    return count;
 }
 
 int main(int argc, char *argv[]) {
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
         printf("Number of punctuation marks in string: %d", result);
     } else if (argc == 2) {
         randomInput(&result);
-        printf("Number of punctuation marks in string: %d", result);
+        printf("\nNumber of punctuation marks in string: %d", result);
     } else if (argc == 3) {
         result = inputFromFile(argv[1]);
         outputToFile(argv[2], result);
