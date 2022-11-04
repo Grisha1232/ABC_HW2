@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include "checkFunc.c"
+
 int inputFromFile(char* in) {
     FILE* input = fopen(in, "r");
     char c;
