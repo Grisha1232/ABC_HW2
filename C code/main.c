@@ -3,13 +3,46 @@
 
 extern int isPunctuationMark(const char c);
 
-extern void inputFromConsole(char **string, size_t *length);
+void inputFromConsole(char **string, size_t *length) {
+    size_t inputLen = 0;
+    printf("Type string: ");
+    *length = getline(&*string, &inputLen, stdin);
+}
 
-extern int inputFromFile(char* in);
+int inputFromFile(char* in) {
+    FILE* input = fopen(in, "r");
+    char c;
+    int count = 0;
+    while(!feof(input)) {
+        c = fgetc(input);
+        if (isPunctuationMark(c)) {
+            count++;
+        }
+    }
+    fclose(input);
+    return count;
+}
 
-extern void outputToFile(char* out, const int result);
+void outputToFile(char* out, const int result) {
+    FILE* output = fopen(out, "w");
+    fprintf(output, "%d", result);
+    fclose(output);
+}
 
-extern int randomInput(int* result);
+int randomInput(int* result) {
+    srand(10);
+    int count = 0;
+    int length = rand() % 10000;
+    printf("Result rand string: ");
+    for (int i = 0; i < length; i++) {
+        char c = rand() % 128;
+        printf("%c", c);
+        if (isPunctuationMark(c)) {
+            count++;
+        }
+    }
+    return count;
+}
 
 int main(int argc, char *argv[]) {
     int result = 0;
