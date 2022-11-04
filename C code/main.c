@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define max_size 10000
-
 int isPunctuationMark(const char c) {
     switch (c) {
         case 33:        // !
@@ -35,22 +33,44 @@ int isPunctuationMark(const char c) {
 }
 
 void inputFromConsole(char **string, size_t *length) {
-    // char* string;    string that input user
     size_t inputLen = 0;
     printf("Type string: ");
     *length = getline(&*string, &inputLen, stdin);
 }
 
-void inputFromFile(char* stream) {
-    // TODO: Write func to read from FILE
+int inputFromFile(char* in) {
+    FILE* input = fopen(in, "r");
+    char c;
+    int count = 0;
+    while(!feof(input)) {
+        c = fgetc(input);
+        if (isPunctuationMark(c)) {
+            count++;
+        }
+    }
+    fclose(input);
+    return count;
 }
 
-void outputToFile(char* output) {
-    // TODO: Write func to output result to file
+void outputToFile(char* out, const int result) {
+    FILE* output = fopen(out, "w");
+    fprintf(output, "%d", result);
+    fclose(output);
 }
 
-void randomInput(int* result) {
-    // TODO: Write func for randInput (with output random) and count result
+int randomInput(int* result) {
+    srand(NULL);
+    int count = 0;
+    int length = rand() % 10000;
+    printf("Result rand string: ");
+    for (int i = 0; i < length; i++) {
+        char c = rand() % 128;
+        printf("%c", c);
+        if (isPunctuationMark(c)) {
+            count++;
+        }
+    }
+    return count;
 }
 
 int main(int argc, char *argv[]) {
@@ -68,8 +88,8 @@ int main(int argc, char *argv[]) {
         randomInput(&result);
         printf("%d", result);
     } else if (argc == 3) {
-        inputFromFile(argv[1]);
-        outputToFile(argv[2]);
+        result = inputFromFile(argv[1]);
+        outputToFile(argv[2], result);
     }
 
     return 0;
