@@ -24,7 +24,7 @@
 * [nonModmain.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 * [nonModcheckFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 
-**Ассемблер модифицированый (с коммнтариями):**
+**Ассемблер модифицированый (с комментариями):**
 * [main.s]()
 * [checkFunc.s]()
 > [Список изменений]()
