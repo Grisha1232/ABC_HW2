@@ -20,6 +20,11 @@
 * [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)
 * [checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/checkFunc.c)
 
-**Ассемблер не модифицированый (без опций отладки):**
+**Ассемблер не модифицированый (без опций отладки, с комментариями):**
 * [nonModmain.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 * [nonModcheckFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
+
+**Ассемблер модифицированый (с коммнтариями):**
+* [main.s]()
+* [checkFunc.s]()
+> [Список изменений]()
