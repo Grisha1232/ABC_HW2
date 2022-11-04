@@ -25,7 +25,7 @@ int inputFromFile(char* in) {
 
 void outputToFile(char* out, const int result) {
     FILE* output = fopen(out, "w");
-    fprintf(output, "%d", result);
+    fprintf(output, "Number of punctuation marks in string: %d", result);
     fclose(output);
 }
 
@@ -55,9 +55,15 @@ int main(int argc, char *argv[]) {
             return -1;
         }
         length--;
+        for (int i = 0; i < length; i++) {
+            if (isPunctuationMark(string[i])) {
+                result++;
+            }
+        }
+        printf("Number of punctuation marks in string: %d", result);
     } else if (argc == 2) {
         randomInput(&result);
-        printf("%d", result);
+        printf("Number of punctuation marks in string: %d", result);
     } else if (argc == 3) {
         result = inputFromFile(argv[1]);
         outputToFile(argv[2], result);
