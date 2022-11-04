@@ -215,12 +215,12 @@ main:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	subq	$48, %rsp
-	movl	%edi, -36(%rbp)
-	movq	%rsi, -48(%rbp)
-	movl	$0, -8(%rbp)
-	movq	$0, -16(%rbp)
-	movq	$0, -24(%rbp)
-	cmpl	$1, -36(%rbp)
+	movl	%edi, -36(%rbp)		# argc
+	movq	%rsi, -48(%rbp)		# argv
+	movl	$0, -8(%rbp)		# int result
+	movq	$0, -16(%rbp)		# char* string
+	movq	$0, -24(%rbp)		# size_t length
+	cmpl	$1, -36(%rbp)		
 	jne	.L13
 	leaq	-24(%rbp), %rdx
 	leaq	-16(%rbp), %rax
