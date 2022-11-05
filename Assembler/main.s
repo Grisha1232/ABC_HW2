@@ -201,7 +201,7 @@ funcForTimeMeasuring:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 16
-	mov	DWORD PTR -4[rbp], 0
+	mov	DWORD PTR -4[rbp], 0		# int result = 0;
 	mov	edi, 0
 	call	time@PLT
 	mov	edi, eax
@@ -214,7 +214,7 @@ funcForTimeMeasuring:
 	mov	ecx, eax
 	sar	ecx, 31
 	sub	edx, ecx
-	mov	DWORD PTR -12[rbp], edx
+	mov	DWORD PTR -12[rbp], edx		# int length = rand
 	mov	edx, DWORD PTR -12[rbp]
 	imul	edx, edx, 1000
 	sub	eax, edx
@@ -278,13 +278,13 @@ main:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 80
-	mov	DWORD PTR -68[rbp], edi
-	mov	QWORD PTR -80[rbp], rsi
-	mov	DWORD PTR -36[rbp], 0
-	mov	QWORD PTR -48[rbp], 0
-	mov	QWORD PTR -56[rbp], 0
+	mov	DWORD PTR -68[rbp], edi		# argc
+	mov	QWORD PTR -80[rbp], rsi		# argv
+	mov	DWORD PTR -36[rbp], 0		# int result = 0
+	mov	QWORD PTR -48[rbp], 0		# char* string = NULL
+	mov	QWORD PTR -56[rbp], 0		# size_t length = 0
 	
-	cmp	DWORD PTR -68[rbp], 1
+	cmp	DWORD PTR -68[rbp], 1		# if argc == 1
 	jne	.L18
 	lea	rdx, -56[rbp]
 	lea	rax, -48[rbp]
@@ -336,7 +336,7 @@ main:
 	call	printf@PLT
 	jmp	.L24
 .L18:
-	cmp	DWORD PTR -68[rbp], 2
+	cmp	DWORD PTR -68[rbp], 2		# if argc == 2
 	jne	.L25
 	mov	rax, QWORD PTR -80[rbp]
 	add	rax, 8
@@ -393,7 +393,7 @@ main:
 	call	printf@PLT
 	jmp	.L24
 .L25:
-	cmp	DWORD PTR -68[rbp], 3
+	cmp	DWORD PTR -68[rbp], 3		# if argc == 3
 	jne	.L24
 	mov	rax, QWORD PTR -80[rbp]
 	add	rax, 8
