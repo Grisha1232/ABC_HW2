@@ -42,8 +42,14 @@
 
 ## Отчет на 5 баллов:
 
-**Сделаны функции:**  
-isPunctuationMark(const char c);    
-inputFromConsole(char ***string, size_t *length);     
-inputFromFile(char* in);     
-outputToFile(char* out, const int result);   
+**Сделаны функции с передачей данных через параметры:**  
+* isPunctuationMark(const char c)
+* inputFromConsole(char ***string, size_t *length)
+* inputFromFile(char* in)
+* outputToFile(char* out, const int result)
+* randomInput(int* result)
+
+
+Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)  
+Добавлены комментарии в ассемблерную програму описывающую передачу данных через параметры [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)  
+
