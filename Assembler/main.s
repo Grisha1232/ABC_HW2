@@ -270,8 +270,8 @@ main:
 	
 	cmp	DWORD PTR -68[rbp], 1		# if argc == 1
 	jne	.L18
-	lea	rsi, -56[rbp]
-	lea	rdi, -48[rbp]
+	lea	rsi, -56[rbp]			# transfer to func 'length' by link
+	lea	rdi, -48[rbp]			# transfer to func string by link
 	call	inputFromConsole
 	mov	rax, QWORD PTR -56[rbp]
 	cmp	rax, 1
@@ -355,7 +355,7 @@ main:
 	mov	eax, 0
 	jmp	.L29
 .L26:
-	lea	rdi, -36[rbp]
+	lea	rdi, -36[rbp]			# Transfer 'result' to func by link
 	call	randomInput
 	mov	esi, DWORD PTR -36[rbp]
 	lea	rdi, .LC10[rip]
@@ -367,11 +367,11 @@ main:
 	jne	.L24
 	mov	rax, QWORD PTR -80[rbp]
 	add	rax, 8
-	mov	rdi, QWORD PTR [rax]
+	mov	rdi, QWORD PTR [rax]		# tansfer argv[1](string)
 	call	inputFromFile
 	mov	DWORD PTR -36[rbp], eax
-	mov	esi, DWORD PTR -36[rbp]
-	mov	rax, QWORD PTR -80[rbp]
+	mov	esi, DWORD PTR -36[rbp]		# transfer result
+	mov	rax, QWORD PTR -80[rbp]		# transfer argv[2](string)
 	add	rax, 16
 	mov	rdi, QWORD PTR [rax]
 	call	outputToFile
