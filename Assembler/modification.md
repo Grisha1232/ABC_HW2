@@ -3,7 +3,7 @@
 ## 
 **Заменены штуки вида:**
 ```Assembler
-lea rax 'something'
+lea rax 'something'     № (или какой нибудь другой регистр)
 mov rdi rax
 ```
 **на:**
