@@ -33,6 +33,7 @@
 * [checkFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/checkFunc.s)
 > [Список изменений](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/modification.md)
 
+
 ### Итог:
 * Приведено решения на С
 * Приведена ассемблерная программа без отладочных опций (с комментариями)
