@@ -42,7 +42,7 @@
 
 ## Отчет на 5 баллов:
 
-**Сделаны функции: **
+**Сделаны функции:**
 isPunctuationMark(const char c);  
 inputFromConsole(char ***string, size_t *length);  
 inputFromFile(char* in);  
