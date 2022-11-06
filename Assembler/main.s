@@ -43,7 +43,7 @@ inputFromFile:
 	lea	rsi, .LC1[rip]
 	call	fopen@PLT
 	mov	QWORD PTR -16[rbp], rax			# FILE* input
-	mov	DWORD PTR -4[rbp], 0			# int count = 0
+	mov	r12d, 0			# int count = 0
 	jmp	.L3
 .L4:
 	mov	rdi, QWORD PTR -16[rbp]
@@ -54,7 +54,7 @@ inputFromFile:
 	call	isPunctuationMark@PLT
 	test	eax, eax
 	je	.L3
-	add	DWORD PTR -4[rbp], 1
+	add	r12d, 1
 .L3:
 	mov	rdi, QWORD PTR -16[rbp]
 	call	feof@PLT
@@ -62,7 +62,7 @@ inputFromFile:
 	je	.L4
 	mov	rdi, QWORD PTR -16[rbp]
 	call	fclose@PLT
-	mov	eax, DWORD PTR -4[rbp]
+	mov	eax, r12d
 	leave
 	ret
 	.size	inputFromFile, .-inputFromFile
@@ -133,7 +133,7 @@ randomInput:
 	lea	rdi, .LC5[rip]
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -4[rbp], 0			# int i = 0
+	mov	r12d, 0			# int i = 0
 	jmp	.L8
 .L10:
 	call	rand@PLT
@@ -169,9 +169,9 @@ randomInput:
 	mov	rax, QWORD PTR -24[rbp]
 	mov	DWORD PTR [rax], edx
 .L9:
-	add	DWORD PTR -4[rbp], 1
+	add	r12d, 1
 .L8:
-	mov	eax, DWORD PTR -4[rbp]
+	mov	eax, r12d
 	cmp	eax, DWORD PTR -8[rbp]
 	jl	.L10
 	nop
@@ -185,7 +185,7 @@ funcForTimeMeasuring:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 16
-	mov	DWORD PTR -4[rbp], 0		# int result = 0;
+	mov	r12d, 0		# int result = 0;
 	mov	edi, 0
 	call	time@PLT
 	mov	edi, eax
@@ -230,7 +230,7 @@ funcForTimeMeasuring:
 	call	isPunctuationMark@PLT
 	test	eax, eax
 	je	.L13
-	add	DWORD PTR -4[rbp], 1
+	add	r12d, 1
 .L13:
 	add	DWORD PTR -8[rbp], 1
 .L12:
