@@ -50,8 +50,8 @@
 * randomInput(int* result)
 
 ### Итог: 
-Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)  
-Добавлены комментарии в ассемблерную програму описывающую передачу данных через параметры [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)  
+* Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)  
+* Добавлены комментарии в ассемблерную програму описывающую передачу данных через параметры [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)  
 
 ## Отчет на 6 баллов:
 
@@ -81,4 +81,9 @@ gcc main.o checkFunc.o -o program.exe
 ```
 ./program.exe input.txt output.txt
 ```
-Где **input.txt** - для ввода данных, а **output.txt** - для вывода рещультата.
+Где **input.txt** - для ввода данных, а **output.txt** - для вывода результата.
+
+### Итог: 
+* Добавлена еденица компиляции
+* Добавлен ввод и вывод через файлы
+* Проведены [тесты с файлами]()
