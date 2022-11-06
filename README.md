@@ -20,15 +20,15 @@
 
 ## Отчет на 4 балла:
 
-**Приведено решение задачи на С:**
+**1. Приведено решение задачи на С:**
 * [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)
 * [checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/checkFunc.c)
 
-**Ассемблер не модифицированый (без опций отладки, с комментариями):**
+**2. Ассемблер не модифицированый (без опций отладки, с комментариями):**
 * [nonModmain.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 * [nonModcheckFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 
-**Ассемблер модифицированый (с комментариями):**
+**3. Ассемблер модифицированый (с комментариями):**
 * [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)
 * [checkFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/checkFunc.s)
 > [Список изменений](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/modification.md)
@@ -42,20 +42,20 @@
 
 ## Отчет на 5 баллов:
 
-**Сделаны функции с передачей данных через параметры:**  
+**1. Сделаны функции с передачей данных через параметры:**  
 * isPunctuationMark(const char c)
 * inputFromConsole(char ***string, size_t *length)
 * inputFromFile(char* in)
 * outputToFile(char* out, const int result)
 * randomInput(int* result)
 
-
+### Итог: 
 Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)  
 Добавлены комментарии в ассемблерную програму описывающую передачу данных через параметры [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)  
 
 ## Отчет на 6 баллов:
 
-**Заменены следующие переменные:**
+**1. Заменены следующие переменные:**
 * Замена переменной i (C code) во всех циклах на регистр r12d
 * Замена переменной count (C code) в некоторых местах на регистр r12d
 
@@ -65,7 +65,7 @@
 
 ## Отчет на 7 баллов:
 
-**Реализована программа с двумя еденицами компиляции:**
+**1. Реализована программа с двумя еденицами компиляции:**
 * Функция isPunctuationMark(const char c) вынесена в отдельный файл checkFunc.c
 * Добавлена одна еденица компиляции к уже имеющейся:
 ```
@@ -74,7 +74,7 @@ gcc checkFunc.s -c -o checkFunc.o
 gcc main.o checkFunc.o -o program.exe
 ```
 
-**Реализован ввод и вывод через файлы.** Для того, чтобы ввести данные через файл и также вывести в другой файл нужно:
+**2. Реализован ввод и вывод через файлы.** Для того, чтобы ввести данные через файл и также вывести в другой файл нужно:
 * Создать два файла input.txt и output.txt (Названия файлов не важны).
 * Расположить эти два файла рядом с **program.exe**
 * Прописать в командной строке:
