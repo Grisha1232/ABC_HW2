@@ -45,12 +45,10 @@ void randomInput(int* result) {
     }
 }
 
-void funcForTimeMeasuring() {
+void funcForTimeMeasuring(const char string[], const int length) {
     int result = 0;
-    srand(time(NULL));
-    int length = rand() % 1000;
     for (int i = 0; i < length; i++) {
-        char c = rand() % 96 + 32;
+        char c = string[i];
         if (isPunctuationMark(c)) {
             result++;
         }
@@ -61,9 +59,6 @@ int main(int argc, char *argv[]) {
     int result = 0;
     char *string = NULL;
     size_t length = 0;
-    for (int i = 0; i < argc; i++) {
-        printf("'%s'\n", argv[i]);
-    }
     if (argc == 1) {
         inputFromConsole(&string, &length);
         if (length <= 1) {
@@ -79,13 +74,22 @@ int main(int argc, char *argv[]) {
         printf("Number of punctuation marks in string: %d", result);
     } else if (argc == 2) {
         if (strcmp(argv[1], "measuring") == 0) {
+            srand(time(NULL));
+            int length1 = 999;
+            char string1[length1];
+            printf("Result rand string: ");
+            for (int i = 0; i < length1; i++) {
+                char c = rand() % 96 + 32;
+                string1[i] = c;
+                printf("%c", c);
+            }
             time_t t_start = clock();
-            for (int i = 0; i < 700000; i++) {
-                funcForTimeMeasuring();
+            for (int i = 0; i < 800000; i++) {
+                funcForTimeMeasuring(string1, length1);
             }
             time_t t_end = clock();
 
-            printf("\nThe task is done 700000 times in %d ms\n", (int) (difftime(t_end, t_start)) / 1000);
+            printf("\nThe task is done 800000 times in %d ms\n", (int) (difftime(t_end, t_start)) / 1000);
             return 0;
         }
         randomInput(&result);
