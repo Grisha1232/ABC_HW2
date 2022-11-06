@@ -48,7 +48,7 @@ inputFromFile:
 	mov	rdi, QWORD PTR -16[rbp]
 	call	fgetc@PLT
 	mov	BYTE PTR -17[rbp], al
-	movsx	edi, BYTE PTR -17[rbp]
+	movsx	edi, BYTE PTR -17[rbp]		# Transfer c to the func
 	call	isPunctuationMark@PLT
 	test	eax, eax
 	je	.L3
@@ -156,8 +156,7 @@ randomInput:
 	movsx	eax, BYTE PTR -9[rbp]
 	mov	edi, eax
 	call	putchar@PLT
-	movsx	eax, BYTE PTR -9[rbp]
-	mov	edi, eax
+	movsx	edi, BYTE PTR -9[rbp]		# Transfer c to the func
 	call	isPunctuationMark@PLT
 	test	eax, eax
 	je	.L9
@@ -194,7 +193,7 @@ funcForTimeMeasuring:
 	add	rax, rdx
 	movzx	eax, BYTE PTR [rax]
 	mov	BYTE PTR -9[rbp], al
-	movsx	edi, BYTE PTR -9[rbp]
+	movsx	edi, BYTE PTR -9[rbp]		# Transfer c to the func
 	call	isPunctuationMark@PLT
 	test	eax, eax
 	je	.L13
@@ -240,8 +239,8 @@ main:
 	mov	QWORD PTR -120[rbp], 0		# size_t length = 0
 	cmp	DWORD PTR -132[rbp], 1		# if argc == 1
 	jne	.L16
-	lea	rsi, -120[rbp]
-	lea	rdi, -112[rbp]
+	lea	rsi, -120[rbp]			# Transfer string to the func	by link
+	lea	rdi, -112[rbp]			# Transfer length to the func	by link
 	call	inputFromConsole
 	mov	rax, QWORD PTR -120[rbp]
 	cmp	rax, 1
@@ -264,7 +263,7 @@ main:
 	add	rax, rdx
 	movzx	eax, BYTE PTR [rax]
 	movsx	eax, al
-	mov	edi, eax
+	mov	edi, eax			# Transfer c to the func
 	call	isPunctuationMark@PLT
 	test	eax, eax
 	je	.L20
@@ -299,8 +298,8 @@ main:
 	call	time@PLT
 	mov	edi, eax
 	call	srand@PLT
-	mov	DWORD PTR -64[rbp], 999
-	mov	eax, DWORD PTR -64[rbp]
+	mov	DWORD PTR -64[rbp], 999		# length1 = 999
+	mov	eax, DWORD PTR -64[rbp]		# string1[length1]
 	movsx	rdx, eax
 	sub	rdx, 1
 	mov	QWORD PTR -72[rbp], rdx
@@ -364,8 +363,8 @@ main:
 	mov	DWORD PTR -60[rbp], 0
 	jmp	.L27
 .L28:
-	mov	esi, DWORD PTR -64[rbp]
-	mov	rdi, QWORD PTR -80[rbp]
+	mov	esi, DWORD PTR -64[rbp]		# Transfer length1 to the func
+	mov	rdi, QWORD PTR -80[rbp]		# transfer string1[] to the func
 	call	funcForTimeMeasuring
 	add	DWORD PTR -60[rbp], 1
 .L27:
@@ -394,7 +393,7 @@ main:
 	mov	rsp, rbx
 	jmp	.L29
 .L24:
-	lea	rdi, -104[rbp]
+	lea	rdi, -104[rbp]			# transfer result to the func 	by link
 	call	randomInput
 	mov	esi, DWORD PTR -104[rbp]
 	lea	rdi, .LC9[rip]
@@ -406,11 +405,11 @@ main:
 	jne	.L22
 	mov	rax, QWORD PTR -144[rbp]
 	add	rax, 8
-	mov	rdi, QWORD PTR [rax]
+	mov	rdi, QWORD PTR [rax]		# Transfer argv[1] to the func
 	call	inputFromFile
 	mov	DWORD PTR -104[rbp], eax
-	mov	esi, DWORD PTR -104[rbp]
-	mov	rdi, QWORD PTR -144[rbp]
+	mov	esi, DWORD PTR -104[rbp]	# Transfer result to the func
+	mov	rdi, QWORD PTR -144[rbp]	# Transfer argv[2] to the func
 	add	rax, 16
 	mov	rax, QWORD PTR [rax]
 	call	outputToFile
