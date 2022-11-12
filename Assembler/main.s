@@ -1,4 +1,3 @@
-	.file	"main.c"
 	.intel_syntax noprefix
 	.text
 	.section	.rodata
@@ -11,9 +10,9 @@ inputFromConsole:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 32
-	mov	QWORD PTR -24[rbp], rdi
-	mov	QWORD PTR -32[rbp], rsi
-	mov	QWORD PTR -8[rbp], 0
+	mov	QWORD PTR -24[rbp], rdi		# char** string
+	mov	QWORD PTR -32[rbp], rsi		# size_t* length
+	mov	QWORD PTR -8[rbp], 0		# size_t inputLen
 	lea	rax, .LC0[rip]
 	mov	rdi, rax
 	mov	eax, 0
@@ -41,23 +40,19 @@ inputFromFile:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 48
-	mov	QWORD PTR -40[rbp], rdi
-	mov	QWORD PTR -48[rbp], rsi
-	mov	rax, QWORD PTR -40[rbp]
-	lea	rdx, .LC1[rip]
-	mov	rsi, rdx
-	mov	rdi, rax
+	mov	QWORD PTR -40[rbp], rdi		# char* in
+	mov	QWORD PTR -48[rbp], rsi		# int resultPunct[]
+	mov	rdi, QWORD PTR -40[rbp]
+	lea	rsi, .LC1[rip]
 	call	fopen@PLT
-	mov	QWORD PTR -16[rbp], rax
+	mov	QWORD PTR -16[rbp], rax		# fopen(in)
 	mov	DWORD PTR -4[rbp], 0
 	jmp	.L3
 .L4:
-	mov	rax, QWORD PTR -16[rbp]
-	mov	rdi, rax
+	mov	rdi, QWORD PTR -16[rbp]
 	call	fgetc@PLT
 	mov	BYTE PTR -17[rbp], al
-	movsx	eax, BYTE PTR -17[rbp]
-	mov	edi, eax
+	movsx	edi, BYTE PTR -17[rbp]
 	call	isPunctuationMark@PLT
 	mov	DWORD PTR -24[rbp], eax
 	cmp	DWORD PTR -24[rbp], -1
@@ -72,13 +67,11 @@ inputFromFile:
 	mov	DWORD PTR [rax], edx
 	add	DWORD PTR -4[rbp], 1
 .L3:
-	mov	rax, QWORD PTR -16[rbp]
-	mov	rdi, rax
+	mov	rdi, QWORD PTR -16[rbp]
 	call	feof@PLT
 	test	eax, eax
 	je	.L4
-	mov	rax, QWORD PTR -16[rbp]
-	mov	rdi, rax
+	mov	rdi, QWORD PTR -16[rbp]
 	call	fclose@PLT
 	mov	eax, DWORD PTR -4[rbp]
 	leave
@@ -100,20 +93,16 @@ outputToFile:
 	mov	rbp, rsp
 	push	rbx
 	sub	rsp, 56
-	mov	QWORD PTR -40[rbp], rdi
-	mov	DWORD PTR -44[rbp], esi
-	mov	QWORD PTR -56[rbp], rdx
-	mov	rax, QWORD PTR -40[rbp]
-	lea	rdx, .LC2[rip]
-	mov	rsi, rdx
-	mov	rdi, rax
-	call	fopen@PLT
+	mov	QWORD PTR -40[rbp], rdi		# char* out
+	mov	DWORD PTR -44[rbp], esi		# const int result
+	mov	QWORD PTR -56[rbp], rdx		# const int resultPunct[]
+	mov	rdi, QWORD PTR -40[rbp]		#
+	lea	rsi, .LC2[rip]			# fopen(...)
+	call	fopen@PLT			#
 	mov	QWORD PTR -32[rbp], rax
 	mov	edx, DWORD PTR -44[rbp]
-	mov	rax, QWORD PTR -32[rbp]
-	lea	rcx, .LC3[rip]
-	mov	rsi, rcx
-	mov	rdi, rax
+	mov	rdi, QWORD PTR -32[rbp]
+	lea	rsi, .LC3[rip]
 	mov	eax, 0
 	call	fprintf@PLT
 	mov	DWORD PTR -20[rbp], 0
@@ -133,14 +122,12 @@ outputToFile:
 	mov	rax, QWORD PTR -56[rbp]
 	add	rax, rdx
 	mov	ebx, DWORD PTR [rax]
-	mov	eax, DWORD PTR -20[rbp]
-	mov	edi, eax
+	mov	edi, DWORD PTR -20[rbp]
 	call	fromIntToChar@PLT
 	movsx	edx, al
-	mov	rax, QWORD PTR -32[rbp]
+	mov	rdi, QWORD PTR -32[rbp]
 	mov	ecx, ebx
 	lea	rsi, .LC4[rip]
-	mov	rdi, rax
 	mov	eax, 0
 	call	fprintf@PLT
 .L8:
@@ -148,8 +135,7 @@ outputToFile:
 .L7:
 	cmp	DWORD PTR -20[rbp], 22
 	jle	.L9
-	mov	rax, QWORD PTR -32[rbp]
-	mov	rdi, rax
+	mov	rdi, QWORD PTR -32[rbp]
 	call	fclose@PLT
 	nop
 	mov	rbx, QWORD PTR -8[rbp]
@@ -168,13 +154,14 @@ randomInput:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 32
-	mov	QWORD PTR -24[rbp], rdi
-	mov	QWORD PTR -32[rbp], rsi
-	mov	edi, 0
-	call	time@PLT
-	mov	edi, eax
-	call	srand@PLT
-	call	rand@PLT
+	mov	QWORD PTR -24[rbp], rdi		# int* result
+	mov	QWORD PTR -32[rbp], rsi		# int resultPunct[]
+	
+	mov	edi, 0				# srand(time(NULL))
+	call	time@PLT			#
+	mov	edi, eax			#
+	call	srand@PLT			#
+	call	rand@PLT			
 	movsx	rdx, eax
 	imul	rdx, rdx, 274877907
 	shr	rdx, 32
@@ -182,19 +169,16 @@ randomInput:
 	mov	ecx, eax
 	sar	ecx, 31
 	sub	edx, ecx
-	mov	DWORD PTR -8[rbp], edx
+	mov	DWORD PTR -8[rbp], edx		# int length = rand() % 1000
 	mov	edx, DWORD PTR -8[rbp]
 	imul	edx, edx, 1000
 	sub	eax, edx
 	mov	DWORD PTR -8[rbp], eax
-	mov	eax, DWORD PTR -8[rbp]
-	mov	esi, eax
-	lea	rax, .LC5[rip]
-	mov	rdi, rax
+	mov	esi, DWORD PTR -8[rbp]
+	lea	rdi, .LC5[rip]
 	mov	eax, 0
 	call	printf@PLT
-	lea	rax, .LC6[rip]
-	mov	rdi, rax
+	lea	rdi, .LC6[rip]
 	mov	eax, 0
 	call	printf@PLT
 	mov	DWORD PTR -4[rbp], 0
@@ -218,15 +202,14 @@ randomInput:
 	sub	ecx, eax
 	mov	eax, ecx
 	add	eax, 32
-	mov	BYTE PTR -9[rbp], al
-	movsx	eax, BYTE PTR -9[rbp]
-	mov	edi, eax
+	mov	BYTE PTR -9[rbp], al		# char c = rand() % 96 + 32
+	movsx	edi, BYTE PTR -9[rbp]
 	call	putchar@PLT
 	movsx	eax, BYTE PTR -9[rbp]
 	mov	edi, eax
 	call	isPunctuationMark@PLT
-	mov	DWORD PTR -16[rbp], eax
-	cmp	DWORD PTR -16[rbp], -1
+	mov	DWORD PTR -16[rbp], eax		# int j = isPunctuationMark(c)
+	cmp	DWORD PTR -16[rbp], -1		# if j != -1
 	je	.L12
 	mov	eax, DWORD PTR -16[rbp]
 	cdqe
@@ -258,23 +241,21 @@ funcForTimeMeasuring:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 48
-	mov	QWORD PTR -24[rbp], rdi
-	mov	DWORD PTR -28[rbp], esi
-	mov	QWORD PTR -40[rbp], rdx
-	mov	DWORD PTR -4[rbp], 0
-	mov	DWORD PTR -8[rbp], 0
+	mov	QWORD PTR -24[rbp], rdi		# const char string[];
+	mov	DWORD PTR -28[rbp], esi		# const int length;
+	mov	QWORD PTR -40[rbp], rdx		# int resultPunct[];
+	mov	DWORD PTR -4[rbp], 0		# int result = 0;
+	mov	DWORD PTR -8[rbp], 0		# int i = 0;
 	jmp	.L15
 .L17:
-	mov	eax, DWORD PTR -8[rbp]
-	movsx	rdx, eax
+	movsx	rdx, DWORD PTR -8[rbp]
 	mov	rax, QWORD PTR -24[rbp]
 	add	rax, rdx
 	movzx	eax, BYTE PTR [rax]
-	mov	BYTE PTR -9[rbp], al
-	movsx	eax, BYTE PTR -9[rbp]
-	mov	edi, eax
+	mov	BYTE PTR -9[rbp], al		# char c = ...
+	movsx	edi, BYTE PTR -9[rbp]
 	call	isPunctuationMark@PLT
-	mov	DWORD PTR -16[rbp], eax
+	mov	DWORD PTR -16[rbp], eax		# int j = isPunctuationMark(c)
 	cmp	DWORD PTR -16[rbp], -1
 	je	.L16
 	mov	eax, DWORD PTR -16[rbp]
@@ -319,31 +300,27 @@ main:
 	push	r12
 	push	rbx
 	sub	rsp, 336
-	mov	DWORD PTR -340[rbp], edi
-	mov	QWORD PTR -352[rbp], rsi
-	lea	rdx, -208[rbp]
+	mov	DWORD PTR -340[rbp], edi	# argc
+	mov	QWORD PTR -352[rbp], rsi	# argv[]
+	lea	rdi, -208[rbp]			# int PunctMark[23]
 	mov	eax, 0
 	mov	ecx, 11
-	mov	rdi, rdx
 	rep stosq
 	mov	rdx, rdi
 	mov	DWORD PTR [rdx], eax
 	add	rdx, 4
-	mov	DWORD PTR -212[rbp], 0
-	mov	QWORD PTR -224[rbp], 0
-	mov	QWORD PTR -232[rbp], 0
-	cmp	DWORD PTR -340[rbp], 1
+	mov	DWORD PTR -212[rbp], 0		# int result = 0
+	mov	QWORD PTR -224[rbp], 0		# char* string = Null
+	mov	QWORD PTR -232[rbp], 0		# size_t length
+	cmp	DWORD PTR -340[rbp], 1		# if argc == 1
 	jne	.L19
-	lea	rdx, -232[rbp]
-	lea	rax, -224[rbp]
-	mov	rsi, rdx
-	mov	rdi, rax
+	lea	rsi, -232[rbp]		
+	lea	rdi, -224[rbp]
 	call	inputFromConsole
 	mov	rax, QWORD PTR -232[rbp]
 	cmp	rax, 1
 	ja	.L20
-	lea	rax, .LC7[rip]
-	mov	rdi, rax
+	lea	rdi, .LC7[rip]
 	mov	eax, 0
 	call	printf@PLT
 	mov	eax, -1
@@ -379,15 +356,12 @@ main:
 .L23:
 	add	DWORD PTR -36[rbp], 1
 .L22:
-	mov	eax, DWORD PTR -36[rbp]
-	movsx	rdx, eax
+	movsx	rdx, DWORD PTR -36[rbp]
 	mov	rax, QWORD PTR -232[rbp]
 	cmp	rdx, rax
 	jb	.L24
-	mov	eax, DWORD PTR -212[rbp]
-	mov	esi, eax
-	lea	rax, .LC3[rip]
-	mov	rdi, rax
+	mov	esi, DWORD PTR -212[rbp]
+	lea	rdi, .LC3[rip]
 	mov	eax, 0
 	call	printf@PLT
 	mov	DWORD PTR -40[rbp], 0
@@ -399,16 +373,12 @@ main:
 	test	eax, eax
 	je	.L26
 	mov	eax, DWORD PTR -40[rbp]
-	cdqe
 	mov	ebx, DWORD PTR -208[rbp+rax*4]
-	mov	eax, DWORD PTR -40[rbp]
-	mov	edi, eax
+	mov	edi, DWORD PTR -40[rbp]
 	call	fromIntToChar@PLT
-	movsx	eax, al
+	movsx	esi, al
 	mov	edx, ebx
-	mov	esi, eax
-	lea	rax, .LC4[rip]
-	mov	rdi, rax
+	lea	rdi, .LC4[rip]
 	mov	eax, 0
 	call	printf@PLT
 .L26:
@@ -418,24 +388,21 @@ main:
 	jle	.L27
 	jmp	.L28
 .L19:
-	cmp	DWORD PTR -340[rbp], 2
+	cmp	DWORD PTR -340[rbp], 2		# if argc == 2
 	jne	.L29
 	mov	rax, QWORD PTR -352[rbp]
 	add	rax, 8
-	mov	rax, QWORD PTR [rax]
-	lea	rdx, .LC8[rip]
-	mov	rsi, rdx
-	mov	rdi, rax
+	mov	rdi, QWORD PTR [rax]
+	lea	rsi, .LC8[rip]
 	call	strcmp@PLT
 	test	eax, eax
 	jne	.L30
-	mov	rax, rsp
-	mov	r12, rax
+	mov	r12, rsp
 	mov	edi, 0
 	call	time@PLT
 	mov	edi, eax
 	call	srand@PLT
-	mov	DWORD PTR -60[rbp], 999
+	mov	DWORD PTR -60[rbp], 999		# int length1 = 999
 	mov	eax, DWORD PTR -60[rbp]
 	movsx	rdx, eax
 	sub	rdx, 1
@@ -484,51 +451,45 @@ main:
 	mov	eax, ecx
 	add	eax, 32
 	mov	BYTE PTR -97[rbp], al
-	mov	rdx, QWORD PTR -80[rbp]
+	mov	rdx, QWORD PTR -80[rbp]		# string1[]
 	mov	eax, DWORD PTR -44[rbp]
 	cdqe
 	movzx	ecx, BYTE PTR -97[rbp]
 	mov	BYTE PTR [rdx+rax], cl
-	movsx	eax, BYTE PTR -97[rbp]
+	movsx	eax, BYTE PTR -97[rbp]		# char c
 	mov	edi, eax
 	call	putchar@PLT
-	add	DWORD PTR -44[rbp], 1
+	add	DWORD PTR -44[rbp], 1		# i++
 .L31:
-	mov	eax, DWORD PTR -44[rbp]
+	mov	eax, DWORD PTR -44[rbp]		# i
 	cmp	eax, DWORD PTR -60[rbp]
 	jl	.L32
 	call	clock@PLT
 	mov	QWORD PTR -88[rbp], rax
-	mov	DWORD PTR -48[rbp], 0
+	mov	DWORD PTR -48[rbp], 0		# int i = 0
 	jmp	.L33
 .L36:
 	cmp	DWORD PTR -48[rbp], 799999
 	je	.L34
-	lea	rdx, -336[rbp]
-	mov	ecx, DWORD PTR -60[rbp]
-	mov	rax, QWORD PTR -80[rbp]
-	mov	esi, ecx
-	mov	rdi, rax
+	lea	rdx, -336[rbp]			# transfer punct[] to the func
+	mov	esi, DWORD PTR -60[rbp]		# transfer length1 to the func
+	mov	rdi, QWORD PTR -80[rbp]		# transfer string1[] to the func
 	call	funcForTimeMeasuring
 	jmp	.L35
 .L34:
-	lea	rdx, -208[rbp]
-	mov	ecx, DWORD PTR -60[rbp]
-	mov	rax, QWORD PTR -80[rbp]
-	mov	esi, ecx
-	mov	rdi, rax
+	lea	rdx, -208[rbp]			# transfer punctMarks[] to the func
+	mov	esi, DWORD PTR -60[rbp]		# transfer length1 to the func
+	mov	rdi, QWORD PTR -80[rbp]		# transfer string1[] to the func
 	call	funcForTimeMeasuring
 .L35:
-	add	DWORD PTR -48[rbp], 1
+	add	DWORD PTR -48[rbp], 1		# i++
 .L33:
 	cmp	DWORD PTR -48[rbp], 799999
 	jle	.L36
 	call	clock@PLT
 	mov	QWORD PTR -96[rbp], rax
-	mov	rdx, QWORD PTR -88[rbp]
-	mov	rax, QWORD PTR -96[rbp]
-	mov	rsi, rdx
-	mov	rdi, rax
+	mov	rsi, QWORD PTR -88[rbp]
+	mov	rdi, QWORD PTR -96[rbp]
 	call	difftime@PLT
 	cvttsd2si	eax, xmm0
 	movsx	rdx, eax
@@ -544,48 +505,41 @@ main:
 	mov	rdi, rax
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -52[rbp], 0
+	mov	DWORD PTR -52[rbp], 0		# int i = 0
 	jmp	.L37
 .L39:
-	mov	eax, DWORD PTR -52[rbp]
+	mov	eax, DWORD PTR -52[rbp]		
 	cdqe
-	mov	eax, DWORD PTR -208[rbp+rax*4]
+	mov	eax, DWORD PTR -208[rbp+rax*4]	# punctMarks[i]
 	test	eax, eax
 	je	.L38
 	mov	eax, DWORD PTR -52[rbp]
 	cdqe
 	mov	ebx, DWORD PTR -208[rbp+rax*4]
-	mov	eax, DWORD PTR -52[rbp]
-	mov	edi, eax
+	mov	edi, DWORD PTR -52[rbp]
 	call	fromIntToChar@PLT
-	movsx	eax, al
+	movsx	esi, al
 	mov	edx, ebx
-	mov	esi, eax
-	lea	rax, .LC4[rip]
-	mov	rdi, rax
+	lea	rdi, .LC4[rip]
 	mov	eax, 0
 	call	printf@PLT
 .L38:
-	add	DWORD PTR -52[rbp], 1
+	add	DWORD PTR -52[rbp], 1		# i++
 .L37:
-	cmp	DWORD PTR -52[rbp], 22
+	cmp	DWORD PTR -52[rbp], 22		
 	jle	.L39
 	mov	eax, 0
 	mov	rsp, r12
 	jmp	.L43
 .L30:
-	lea	rdx, -208[rbp]
-	lea	rax, -212[rbp]
-	mov	rsi, rdx
-	mov	rdi, rax
+	lea	rsi, -208[rbp]			# transfer punctMarks to the func
+	lea	rdi, -212[rbp]			# tramsfer result to the func
 	call	randomInput
-	mov	eax, DWORD PTR -212[rbp]
-	mov	esi, eax
-	lea	rax, .LC10[rip]
-	mov	rdi, rax
+	mov	esi, DWORD PTR -212[rbp]
+	lea	rdi, .LC10[rip]
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -56[rbp], 0
+	mov	DWORD PTR -56[rbp], 0		# int i = 0
 	jmp	.L40
 .L42:
 	mov	eax, DWORD PTR -56[rbp]
@@ -602,8 +556,7 @@ main:
 	movsx	eax, al
 	mov	edx, ebx
 	mov	esi, eax
-	lea	rax, .LC4[rip]
-	mov	rdi, rax
+	lea	rdi, .LC4[rip]
 	mov	eax, 0
 	call	printf@PLT
 .L41:
@@ -615,20 +568,17 @@ main:
 .L29:
 	cmp	DWORD PTR -340[rbp], 3
 	jne	.L28
-	mov	rax, QWORD PTR -352[rbp]
+	mov	rax, QWORD PTR -352[rbp]	# transfer argv[1] to the func
 	add	rax, 8
-	mov	rax, QWORD PTR [rax]
-	lea	rdx, -208[rbp]
-	mov	rsi, rdx
-	mov	rdi, rax
+	mov	rdi, QWORD PTR [rax]
+	lea	rsi, -208[rbp]			# transfer punctMarks[] to the func
 	call	inputFromFile
 	mov	DWORD PTR -212[rbp], eax
-	mov	ecx, DWORD PTR -212[rbp]
-	mov	rax, QWORD PTR -352[rbp]
+	mov	esi, DWORD PTR -212[rbp]	# transfer result ot the func
+	mov	rax, QWORD PTR -352[rbp]	# transfer argv[2]
 	add	rax, 16
 	mov	rax, QWORD PTR [rax]
-	lea	rdx, -208[rbp]
-	mov	esi, ecx
+	lea	rdx, -208[rbp]			# transfer punctMarks[] to the func
 	mov	rdi, rax
 	call	outputToFile
 .L28:
@@ -642,5 +592,3 @@ main:
 	pop	rbp
 	ret
 	.size	main, .-main
-	.ident	"GCC: (Debian 11.3.0-5) 11.3.0"
-	.section	.note.GNU-stack,"",@progbits
