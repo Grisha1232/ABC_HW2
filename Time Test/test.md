@@ -11,3 +11,7 @@
 ![image](https://user-images.githubusercontent.com/58052549/201477068-bfb037da-c49c-430b-ba0b-9e06f06e4fb5.png)
 ![image](https://user-images.githubusercontent.com/58052549/201477072-4d85b9c9-fc01-4986-8bad-b7bc291c54f1.png)
 
+## Тесты для Assembler non Mod
+![image](https://user-images.githubusercontent.com/58052549/201478178-647c0db0-b7f4-4a68-a942-e94628fdf396.png)
+![image](https://user-images.githubusercontent.com/58052549/201478194-8642922e-fbdc-4bee-90f9-b1234d1fbd19.png)
+![image](https://user-images.githubusercontent.com/58052549/201478209-4f2bd711-0998-4bc2-b5f2-9229228c08d3.png)
