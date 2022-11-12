@@ -74,7 +74,7 @@ gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 
 ### Итог:
 * Использованы регистры для некоторых переменных в assembler
-* Проведены [тестовые прогоны](https://github.com/Grisha1232/ABC_HW2/blob/db276b4c2f406b24840ed629068590b26d19f6b2/Assembler/Tests/test.md) для подтверждения, что программа работает идентично C коду
+* Проведены [тестовые прогоны](https://github.com/Grisha1232/ABC_HW2/blob/abb6343a33c955feffcfc2398663a29da59c0825/Assembler/Tests/test.md) для подтверждения, что программа работает идентично C коду
 
 ## Отчет на 7 баллов:
 
