@@ -28,6 +28,11 @@
 * [checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/checkFunc.c)
 
 **2. Ассемблер не модифицированый (без опций отладки, с комментариями):**
+```
+gcc main.c -S -o nonModMain.s
+gcc checkFunc.c -S -o nonModCheckFunc.s
+gcc fromIntToChar.c -S -o nonModFromIntToChar.s
+```
 * [nonModmain.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 * [nonModcheckFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 
