@@ -11,7 +11,7 @@ isPunctuationMark:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	movl	%edi, %eax
-	movb	%al, -4(%rbp)
+	movb	%al, -4(%rbp)		# char c
 	movsbl	-4(%rbp), %eax
 	subl	$33, %eax
 	cmpl	$92, %eax
