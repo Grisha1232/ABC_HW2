@@ -5,7 +5,7 @@
 fromIntToChar:
 	push	rbp
 	mov	rbp, rsp
-	mov	DWORD PTR -4[rbp], edi
+	mov	DWORD PTR -4[rbp], edi		# int value
 	cmp	DWORD PTR -4[rbp], 22
 	je	.L2
 	cmp	DWORD PTR -4[rbp], 22
