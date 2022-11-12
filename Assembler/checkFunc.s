@@ -6,7 +6,7 @@ isPunctuationMark:
 	push	rbp
 	mov	rbp, rsp
 	mov	eax, edi
-	mov	BYTE PTR -4[rbp], al
+	mov	BYTE PTR -4[rbp], al		# char c
 	movsx	eax, BYTE PTR -4[rbp]
 	cmp	eax, 125
 	je	.L2
