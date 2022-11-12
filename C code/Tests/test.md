@@ -6,10 +6,10 @@
 asd;lkasd;lkasd;lk
 ```
 * **На С:**
-![image](https://user-images.githubusercontent.com/58052549/200125584-14704cd6-b8ce-4d4e-bfc4-c552dd842bcd.png)
+![image](https://user-images.githubusercontent.com/58052549/201476269-b7b39d1d-0b56-4592-9c02-bf578a9c33e3.png)
 
 * **На Assembler:**
-![image](https://user-images.githubusercontent.com/58052549/200125736-d0e4323d-069e-415e-a138-da3c107c6448.png)
+![image](https://user-images.githubusercontent.com/58052549/201476228-074328f7-dbf5-48ca-9939-1682e5394351.png)
 
 
 ## Test 2
@@ -18,10 +18,10 @@ asd;lkasd;lkasd;lk
 ,./\|[](){};:"'`!?
 ```
 * **На С:**
-![image](https://user-images.githubusercontent.com/58052549/200125682-bfe33ce4-28e9-4418-96b7-b39f39e2047a.png)
+![image](https://user-images.githubusercontent.com/58052549/201476290-08449299-b23f-4884-9fbd-ed2a6b4d8972.png)
 
 * **На Assembler:**
-![image](https://user-images.githubusercontent.com/58052549/200125749-fc1bcf14-f6fe-4597-b93c-21573b4dd7ed.png)
+![image](https://user-images.githubusercontent.com/58052549/201476238-f2f130d3-92d7-4e70-8c23-8db0ca9fbc79.png)
 
 
 ## Test 3
@@ -30,7 +30,7 @@ asd;lkasd;lkasd;lk
 ,./asd,./f[asdfasdfasdf](234234234)!!!!
 ```
 * **На С:**
-![image](https://user-images.githubusercontent.com/58052549/200125824-002b493a-6b38-487f-b920-36044529ad3d.png)
+![image](https://user-images.githubusercontent.com/58052549/201476301-4fd7ce79-2fd3-47f3-8c25-0df2ef455d6a.png)
 
 * **На Assembler:**
-![image](https://user-images.githubusercontent.com/58052549/200125813-98551eee-7318-42fd-b242-08d532937dd4.png)
+![image](https://user-images.githubusercontent.com/58052549/201476247-0e6176b7-e330-4ace-94ab-73be55bc7da1.png)
