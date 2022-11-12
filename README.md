@@ -25,8 +25,8 @@
 
 **1. Приведено решение задачи на С:**
 * [main.c](https://github.com/Grisha1232/ABC_HW2/blob/7d4e43970e7ab0c9fd1adc561a86e21c517584c5/C%20code/main.c)
-* [checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/checkFunc.c)
-* [fromIntToChar](https://github.com/Grisha1232/ABC_HW2/blob/2d3f19fdd03e04c6370ad2e7ab01b2abceaebaaa/C%20code/fromIntToChar.c)
+* [checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/C%20code/checkFunc.c)
+* [fromIntToChar](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/C%20code/fromIntToChar.c)
 
 **2. Ассемблер не модифицированый (без опций отладки, с комментариями):**
 ```
@@ -34,14 +34,14 @@ gcc main.c -S -o nonModMain.s
 gcc checkFunc.c -S -o nonModCheckFunc.s
 gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 ```
-* [nonModmain.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
-* [nonModcheckFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
-* [nonModFromIntToChar.s](https://github.com/Grisha1232/ABC_HW2/blob/00e47ccaa814225233915478fdcc6018709cb2c3/Assembler%20non%20mod/nonModFromIntToChar.s)
+* [nonModmain.s](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/Assembler%20non%20mod/nonModmain.s)
+* [nonModcheckFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/Assembler%20non%20mod/nonModcheckFunc.s)
+* [nonModFromIntToChar.s](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/Assembler%20non%20mod/nonModFromIntToChar.s)
 
 **3. Ассемблер модифицированый (с комментариями):**
-* [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)
-* [checkFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/checkFunc.s)
-* [fromIntToChar.s](https://github.com/Grisha1232/ABC_HW2/blob/446168f3400750ab5bc399f8a77fe0fa21fd98de/Assembler/fromIntToChar.s)
+* [main.s](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/Assembler/main.s)
+* [checkFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/Assembler/fromIntToChar.s)
+* [fromIntToChar.s](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/Assembler/checkFunc.s)
 > [Список изменений](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/modification.md)
 
 
@@ -63,7 +63,7 @@ gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 
 ### Итог: 
 * Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/7d4e43970e7ab0c9fd1adc561a86e21c517584c5/C%20code/main.c)  
-* Добавлены комментарии в ассемблерную програму описывающую передачу данных через параметры [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)  
+* Добавлены комментарии в ассемблерную програму описывающую передачу данных через параметры [main.s](https://github.com/Grisha1232/ABC_HW2/blob/26484f97d626ee4b38a630b58063502ea6d85774/Assembler/main.s)  
 
 ## Отчет на 6 баллов:
 
