@@ -46,7 +46,7 @@ inputFromFile:
 	lea	rsi, .LC1[rip]
 	call	fopen@PLT
 	mov	QWORD PTR -16[rbp], rax		# fopen(in)
-	mov	DWORD PTR -4[rbp], 0
+	mov	r13d, 0		# int count = 0
 	jmp	.L3
 .L4:
 	mov	rdi, QWORD PTR -16[rbp]
@@ -65,7 +65,7 @@ inputFromFile:
 	mov	edx, DWORD PTR [rax]
 	add	edx, 1
 	mov	DWORD PTR [rax], edx
-	add	DWORD PTR -4[rbp], 1
+	add	r13d, 1
 .L3:
 	mov	rdi, QWORD PTR -16[rbp]
 	call	feof@PLT
@@ -73,7 +73,7 @@ inputFromFile:
 	je	.L4
 	mov	rdi, QWORD PTR -16[rbp]
 	call	fclose@PLT
-	mov	eax, DWORD PTR -4[rbp]
+	mov	eax, r13d
 	leave
 	ret
 	.size	inputFromFile, .-inputFromFile
@@ -105,10 +105,10 @@ outputToFile:
 	lea	rsi, .LC3[rip]
 	mov	eax, 0
 	call	fprintf@PLT
-	mov	DWORD PTR -20[rbp], 0
+	mov	r12d, 0		# int i = 0
 	jmp	.L7
 .L9:
-	mov	eax, DWORD PTR -20[rbp]
+	mov	eax, r12d
 	cdqe
 	lea	rdx, 0[0+rax*4]
 	mov	rax, QWORD PTR -56[rbp]
@@ -116,13 +116,13 @@ outputToFile:
 	mov	eax, DWORD PTR [rax]
 	test	eax, eax
 	je	.L8
-	mov	eax, DWORD PTR -20[rbp]
+	mov	eax, r12d
 	cdqe
 	lea	rdx, 0[0+rax*4]
 	mov	rax, QWORD PTR -56[rbp]
 	add	rax, rdx
 	mov	ebx, DWORD PTR [rax]
-	mov	edi, DWORD PTR -20[rbp]
+	mov	edi, r12d
 	call	fromIntToChar@PLT
 	movsx	edx, al
 	mov	rdi, QWORD PTR -32[rbp]
@@ -131,9 +131,9 @@ outputToFile:
 	mov	eax, 0
 	call	fprintf@PLT
 .L8:
-	add	DWORD PTR -20[rbp], 1
+	add	r12d, 1
 .L7:
-	cmp	DWORD PTR -20[rbp], 22
+	cmp	r12d, 22
 	jle	.L9
 	mov	rdi, QWORD PTR -32[rbp]
 	call	fclose@PLT
@@ -181,7 +181,7 @@ randomInput:
 	lea	rdi, .LC6[rip]
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -4[rbp], 0
+	mov	r12d, 0		# int i = 0;
 	jmp	.L11
 .L13:
 	call	rand@PLT
@@ -225,9 +225,9 @@ randomInput:
 	mov	rax, QWORD PTR -24[rbp]
 	mov	DWORD PTR [rax], edx
 .L12:
-	add	DWORD PTR -4[rbp], 1
+	add	r12d, 1
 .L11:
-	mov	eax, DWORD PTR -4[rbp]
+	mov	eax, r12d
 	cmp	eax, DWORD PTR -8[rbp]
 	jl	.L13
 	nop
@@ -244,11 +244,11 @@ funcForTimeMeasuring:
 	mov	QWORD PTR -24[rbp], rdi		# const char string[];
 	mov	DWORD PTR -28[rbp], esi		# const int length;
 	mov	QWORD PTR -40[rbp], rdx		# int resultPunct[];
-	mov	DWORD PTR -4[rbp], 0		# int result = 0;
-	mov	DWORD PTR -8[rbp], 0		# int i = 0;
+	mov	r14d, 0				# int result = 0;
+	mov	r12d, 0				# int i = 0;
 	jmp	.L15
 .L17:
-	movsx	rdx, DWORD PTR -8[rbp]
+	movsx	rdx, r12d
 	mov	rax, QWORD PTR -24[rbp]
 	add	rax, rdx
 	movzx	eax, BYTE PTR [rax]
@@ -266,11 +266,11 @@ funcForTimeMeasuring:
 	mov	edx, DWORD PTR [rax]
 	add	edx, 1
 	mov	DWORD PTR [rax], edx
-	add	DWORD PTR -4[rbp], 1
+	add	r14d, 1
 .L16:
-	add	DWORD PTR -8[rbp], 1
+	add	r12d, 1
 .L15:
-	mov	eax, DWORD PTR -8[rbp]
+	mov	eax, r12d
 	cmp	eax, DWORD PTR -28[rbp]
 	jl	.L17
 	nop
@@ -329,11 +329,11 @@ main:
 	mov	rax, QWORD PTR -232[rbp]
 	sub	rax, 1
 	mov	QWORD PTR -232[rbp], rax
-	mov	DWORD PTR -36[rbp], 0		# int i = 0
+	mov	r12d, 0				# int i = 0
 	jmp	.L22
 .L24:
 	mov	rdx, QWORD PTR -224[rbp]	# char c
-	mov	eax, DWORD PTR -36[rbp]		# int i
+	mov	eax, r12d			# int i
 	cdqe
 	add	rax, rdx
 	movzx	eax, BYTE PTR [rax]
@@ -354,9 +354,9 @@ main:
 	add	eax, 1
 	mov	DWORD PTR -212[rbp], eax
 .L23:
-	add	DWORD PTR -36[rbp], 1
+	add	r12d, 1
 .L22:
-	movsx	rdx, DWORD PTR -36[rbp]
+	movsx	rdx, r12d
 	mov	rax, QWORD PTR -232[rbp]
 	cmp	rdx, rax
 	jb	.L24
@@ -364,18 +364,18 @@ main:
 	lea	rdi, .LC3[rip]
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -40[rbp], 0		# int i = 0
+	mov	r12d, 0				# int i = 0
 	jmp	.L25
 .L27:
-	mov	eax, DWORD PTR -40[rbp]
+	mov	eax, r12d
 	cdqe
 	mov	eax, DWORD PTR -208[rbp+rax*4]
 	test	eax, eax
 	je	.L26
-	mov	eax, DWORD PTR -40[rbp]
+	mov	eax, r12d
 	cdqe
 	mov	ebx, DWORD PTR -208[rbp+rax*4]
-	mov	edi, DWORD PTR -40[rbp]		# transfer i to the func
+	mov	edi, r12d			# transfer i to the func
 	call	fromIntToChar@PLT
 	movsx	esi, al
 	mov	edx, ebx
@@ -383,9 +383,9 @@ main:
 	mov	eax, 0
 	call	printf@PLT
 .L26:
-	add	DWORD PTR -40[rbp], 1
+	add	r12d, 1
 .L25:
-	cmp	DWORD PTR -40[rbp], 22
+	cmp	r12d, 22
 	jle	.L27
 	jmp	.L28
 .L19:
@@ -430,7 +430,7 @@ main:
 	mov	rdi, rax
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -44[rbp], 0
+	mov	r12d, 0			# int i = 0
 	jmp	.L31
 .L32:
 	call	rand@PLT
@@ -453,24 +453,24 @@ main:
 	add	eax, 32
 	mov	BYTE PTR -97[rbp], al
 	mov	rdx, QWORD PTR -80[rbp]		# string1[]
-	mov	eax, DWORD PTR -44[rbp]
+	mov	eax, r12d
 	cdqe
 	movzx	ecx, BYTE PTR -97[rbp]
 	mov	BYTE PTR [rdx+rax], cl
 	movsx	eax, BYTE PTR -97[rbp]		# char c
 	mov	edi, eax
 	call	putchar@PLT
-	add	DWORD PTR -44[rbp], 1		# i++
+	add	r12d, 1				# i++
 .L31:
-	mov	eax, DWORD PTR -44[rbp]		# i
+	mov	eax, r12d			# i
 	cmp	eax, DWORD PTR -60[rbp]
 	jl	.L32
 	call	clock@PLT
 	mov	QWORD PTR -88[rbp], rax
-	mov	DWORD PTR -48[rbp], 0		# int i = 0
+	mov	r13d, 0		# int i = 0
 	jmp	.L33
 .L36:
-	cmp	DWORD PTR -48[rbp], 799999
+	cmp	r13d, 799999
 	je	.L34
 	lea	rdx, -336[rbp]			# transfer punct[] to the func
 	mov	esi, DWORD PTR -60[rbp]		# transfer length1 to the func
@@ -483,9 +483,9 @@ main:
 	mov	rdi, QWORD PTR -80[rbp]		# transfer string1[] to the func
 	call	funcForTimeMeasuring
 .L35:
-	add	DWORD PTR -48[rbp], 1		# i++
+	add	r13d, 1		# i++
 .L33:
-	cmp	DWORD PTR -48[rbp], 799999
+	cmp	r13d, 799999
 	jle	.L36
 	call	clock@PLT
 	mov	QWORD PTR -96[rbp], rax
@@ -506,18 +506,18 @@ main:
 	mov	rdi, rax
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -52[rbp], 0		# int i = 0
+	mov	r12d, 0		# int i = 0
 	jmp	.L37
 .L39:
-	mov	eax, DWORD PTR -52[rbp]		
+	mov	eax, r12d		
 	cdqe
 	mov	eax, DWORD PTR -208[rbp+rax*4]	# punctMarks[i]
 	test	eax, eax
 	je	.L38
-	mov	eax, DWORD PTR -52[rbp]
+	mov	eax, r12d
 	cdqe
 	mov	ebx, DWORD PTR -208[rbp+rax*4]
-	mov	edi, DWORD PTR -52[rbp]
+	mov	edi, r12d
 	call	fromIntToChar@PLT
 	movsx	esi, al
 	mov	edx, ebx
@@ -525,9 +525,9 @@ main:
 	mov	eax, 0
 	call	printf@PLT
 .L38:
-	add	DWORD PTR -52[rbp], 1		# i++
+	add	r12d, 1		# i++
 .L37:
-	cmp	DWORD PTR -52[rbp], 22		
+	cmp	r12d, 22		
 	jle	.L39
 	mov	eax, 0
 	mov	rsp, r12
@@ -540,18 +540,18 @@ main:
 	lea	rdi, .LC10[rip]
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -56[rbp], 0		# int i = 0
+	mov	r12d, 0		# int i = 0
 	jmp	.L40
 .L42:
-	mov	eax, DWORD PTR -56[rbp]
+	mov	eax, r12d
 	cdqe
 	mov	eax, DWORD PTR -208[rbp+rax*4]
 	test	eax, eax
 	je	.L41
-	mov	eax, DWORD PTR -56[rbp]
+	mov	eax, r12d
 	cdqe
 	mov	ebx, DWORD PTR -208[rbp+rax*4]
-	mov	eax, DWORD PTR -56[rbp]
+	mov	eax, r12d
 	mov	edi, eax
 	call	fromIntToChar@PLT
 	movsx	eax, al
@@ -561,9 +561,9 @@ main:
 	mov	eax, 0
 	call	printf@PLT
 .L41:
-	add	DWORD PTR -56[rbp], 1
+	add	r12d, 1
 .L40:
-	cmp	DWORD PTR -56[rbp], 22
+	cmp	r12d, 22
 	jle	.L42
 	jmp	.L28
 .L29:
