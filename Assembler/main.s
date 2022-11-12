@@ -314,8 +314,8 @@ main:
 	mov	QWORD PTR -232[rbp], 0		# size_t length
 	cmp	DWORD PTR -340[rbp], 1		# if argc == 1
 	jne	.L19
-	lea	rsi, -232[rbp]		
-	lea	rdi, -224[rbp]
+	lea	rsi, -232[rbp]			# transfer length to the func
+	lea	rdi, -224[rbp]			# transfer string to the func
 	call	inputFromConsole
 	mov	rax, QWORD PTR -232[rbp]
 	cmp	rax, 1
@@ -329,18 +329,18 @@ main:
 	mov	rax, QWORD PTR -232[rbp]
 	sub	rax, 1
 	mov	QWORD PTR -232[rbp], rax
-	mov	DWORD PTR -36[rbp], 0
+	mov	DWORD PTR -36[rbp], 0		# int i = 0
 	jmp	.L22
 .L24:
-	mov	rdx, QWORD PTR -224[rbp]
-	mov	eax, DWORD PTR -36[rbp]
+	mov	rdx, QWORD PTR -224[rbp]	# char c
+	mov	eax, DWORD PTR -36[rbp]		# int i
 	cdqe
 	add	rax, rdx
 	movzx	eax, BYTE PTR [rax]
 	movsx	eax, al
 	mov	edi, eax
 	call	isPunctuationMark@PLT
-	mov	DWORD PTR -104[rbp], eax
+	mov	DWORD PTR -104[rbp], eax	# int j
 	cmp	DWORD PTR -104[rbp], -1
 	je	.L23
 	mov	eax, DWORD PTR -104[rbp]
@@ -350,7 +350,7 @@ main:
 	mov	eax, DWORD PTR -104[rbp]
 	cdqe
 	mov	DWORD PTR -208[rbp+rax*4], edx
-	mov	eax, DWORD PTR -212[rbp]
+	mov	eax, DWORD PTR -212[rbp]	# result++
 	add	eax, 1
 	mov	DWORD PTR -212[rbp], eax
 .L23:
@@ -364,7 +364,7 @@ main:
 	lea	rdi, .LC3[rip]
 	mov	eax, 0
 	call	printf@PLT
-	mov	DWORD PTR -40[rbp], 0
+	mov	DWORD PTR -40[rbp], 0		# int i = 0
 	jmp	.L25
 .L27:
 	mov	eax, DWORD PTR -40[rbp]
@@ -373,8 +373,9 @@ main:
 	test	eax, eax
 	je	.L26
 	mov	eax, DWORD PTR -40[rbp]
+	cdqe
 	mov	ebx, DWORD PTR -208[rbp+rax*4]
-	mov	edi, DWORD PTR -40[rbp]
+	mov	edi, DWORD PTR -40[rbp]		# transfer i to the func
 	call	fromIntToChar@PLT
 	movsx	esi, al
 	mov	edx, ebx
