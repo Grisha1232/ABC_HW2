@@ -15,9 +15,9 @@ inputFromConsole:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	subq	$32, %rsp
-	movq	%rdi, -24(%rbp)
-	movq	%rsi, -32(%rbp)
-	movq	$0, -8(%rbp)
+	movq	%rdi, -24(%rbp)		# char** string
+	movq	%rsi, -32(%rbp)		# size_t* length
+	movq	$0, -8(%rbp)		# size_t inputLen = 0
 	leaq	.LC0(%rip), %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
@@ -53,8 +53,8 @@ inputFromFile:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	subq	$48, %rsp
-	movq	%rdi, -40(%rbp)
-	movq	%rsi, -48(%rbp)
+	movq	%rdi, -40(%rbp)		# char* in
+	movq	%rsi, -48(%rbp)		# int resultPunct[]
 	movq	-40(%rbp), %rax
 	leaq	.LC1(%rip), %rdx
 	movq	%rdx, %rsi
@@ -121,9 +121,9 @@ outputToFile:
 	pushq	%rbx
 	subq	$56, %rsp
 	.cfi_offset 3, -24
-	movq	%rdi, -40(%rbp)
-	movl	%esi, -44(%rbp)
-	movq	%rdx, -56(%rbp)
+	movq	%rdi, -40(%rbp)		# char* out
+	movl	%esi, -44(%rbp)		# const int result
+	movq	%rdx, -56(%rbp)		# const int resultPunct[]
 	movq	-40(%rbp), %rax
 	leaq	.LC2(%rip), %rdx
 	movq	%rdx, %rsi
@@ -197,8 +197,8 @@ randomInput:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	subq	$32, %rsp
-	movq	%rdi, -24(%rbp)
-	movq	%rsi, -32(%rbp)
+	movq	%rdi, -24(%rbp)		# int* result
+	movq	%rsi, -32(%rbp)		# int resultPunct[]
 	movl	$0, %edi
 	call	time@PLT
 	movl	%eax, %edi
@@ -295,11 +295,11 @@ funcForTimeMeasuring:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	subq	$48, %rsp
-	movq	%rdi, -24(%rbp)
-	movl	%esi, -28(%rbp)
-	movq	%rdx, -40(%rbp)
-	movl	$0, -4(%rbp)
-	movl	$0, -8(%rbp)
+	movq	%rdi, -24(%rbp)		# const char string[]
+	movl	%esi, -28(%rbp)		# const int length
+	movq	%rdx, -40(%rbp)		# int resultPunct[]
+	movl	$0, -4(%rbp)		# int result = 0;
+	movl	$0, -8(%rbp)		# int i = 0;
 	jmp	.L15
 .L17:
 	movl	-8(%rbp), %eax
@@ -368,9 +368,9 @@ main:
 	.cfi_offset 14, -32
 	.cfi_offset 12, -40
 	.cfi_offset 3, -48
-	movl	%edi, -340(%rbp)
-	movq	%rsi, -352(%rbp)
-	leaq	-208(%rbp), %rdx
+	movl	%edi, -340(%rbp)	# argc
+	movq	%rsi, -352(%rbp)	# argv[]
+	leaq	-208(%rbp), %rdx	# punctMarks[]
 	movl	$0, %eax
 	movl	$11, %ecx
 	movq	%rdx, %rdi
@@ -378,10 +378,10 @@ main:
 	movq	%rdi, %rdx
 	movl	%eax, (%rdx)
 	addq	$4, %rdx
-	movl	$0, -212(%rbp)
-	movq	$0, -224(%rbp)
-	movq	$0, -232(%rbp)
-	cmpl	$1, -340(%rbp)
+	movl	$0, -212(%rbp)		# int result = 0;
+	movq	$0, -224(%rbp)		# char* strin = NULL
+	movq	$0, -232(%rbp)		# size_t length = 0;
+	cmpl	$1, -340(%rbp)		# if argc == 1
 	jne	.L19
 	leaq	-232(%rbp), %rdx
 	leaq	-224(%rbp), %rax
@@ -467,7 +467,7 @@ main:
 	jle	.L27
 	jmp	.L28
 .L19:
-	cmpl	$2, -340(%rbp)
+	cmpl	$2, -340(%rbp)		# if argc == 2
 	jne	.L29
 	movq	-352(%rbp), %rax
 	addq	$8, %rax
@@ -662,7 +662,7 @@ main:
 	jle	.L42
 	jmp	.L28
 .L29:
-	cmpl	$3, -340(%rbp)
+	cmpl	$3, -340(%rbp)		# if argc == 3
 	jne	.L28
 	movq	-352(%rbp), %rax
 	addq	$8, %rax
