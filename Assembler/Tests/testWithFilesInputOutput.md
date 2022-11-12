@@ -12,15 +12,17 @@
 ## Test 2
 ### input.txt:
 ```
+123123128764928376549287346
 ```
-![image](https://user-images.githubusercontent.com/58052549/200173567-b322d068-b5d9-445e-a060-050699b994fb.png)
+![image](https://user-images.githubusercontent.com/58052549/201476676-bd3a2e61-6a37-41d5-9ec0-7e093021fae7.png)
 ### output.txt:
-![image](https://user-images.githubusercontent.com/58052549/200173585-87fbd196-deac-47e4-837f-b2a8a7dc70e0.png)
+![image](https://user-images.githubusercontent.com/58052549/201476679-0bc5268c-fe7d-4c4f-82be-2d8e41fbc078.png)
 
 ## Test 3
 ### input.txt:
 ```
+?>...,.()()({}[]\\\|||///
 ```
-![image](https://user-images.githubusercontent.com/58052549/200173612-3d8f1354-0484-4304-a703-18f87474c6bb.png)
+![image](https://user-images.githubusercontent.com/58052549/201476704-02819c1c-a909-4f87-83d8-7238e8734a81.png)
 ### output.txt:
-![image](https://user-images.githubusercontent.com/58052549/200173799-663517ec-3da4-4fce-9251-9b69732d6270.png)
+![image](https://user-images.githubusercontent.com/58052549/201476721-7931956b-6daa-4038-a359-3d4f00340f84.png)
