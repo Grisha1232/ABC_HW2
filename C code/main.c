@@ -5,19 +5,23 @@
 
 extern int isPunctuationMark(const char c);
 
+extern char fromIntToChar(int value);
+
 void inputFromConsole(char **string, size_t *length) {
     size_t inputLen = 0;
     printf("Type string: ");
     *length = getline(&*string, &inputLen, stdin);
 }
 
-int inputFromFile(char* in) {
-    FILE* input = fopen(in, "r");
+int inputFromFile(char *in, int resultPunct[]) {
+    FILE *input = fopen(in, "r");
     char c;
     int count = 0;
-    while(!feof(input)) {
+    while (!feof(input)) {
         c = fgetc(input);
-        if (isPunctuationMark(c)) {
+        int j = isPunctuationMark(c);
+        if (j != -1) {
+            resultPunct[j]++;
             count++;
         }
     }
@@ -25,13 +29,18 @@ int inputFromFile(char* in) {
     return count;
 }
 
-void outputToFile(char* out, const int result) {
-    FILE* output = fopen(out, "w");
-    fprintf(output, "Number of punctuation marks in string: %d", result);
+void outputToFile(char *out, const int result, const int resultPunct[]) {
+    FILE *output = fopen(out, "w");
+    fprintf(output, "Number of punctuation marks in string: %d\n", result);
+    for (int i = 0; i < 23; i++) {
+        if (resultPunct[i] != 0) {
+            fprintf(output, "%c -- %d\n", fromIntToChar(i), resultPunct[i]);
+        }
+    }
     fclose(output);
 }
 
-void randomInput(int* result) {
+void randomInput(int *result, int resultPunct[]) {
     srand(time(NULL));
     int length = rand() % 1000;
     printf("Length of the string: %d\n", length);
@@ -39,23 +48,32 @@ void randomInput(int* result) {
     for (int i = 0; i < length; i++) {
         char c = rand() % 96 + 32;
         printf("%c", c);
-        if (isPunctuationMark(c)) {
+        int j = isPunctuationMark(c);
+        if (j != -1) {
+            resultPunct[j]++;
             (*result)++;
         }
     }
 }
 
-void funcForTimeMeasuring(const char string[], const int length) {
+void funcForTimeMeasuring(const char string[], const int length, int resultPunct[]) {
     int result = 0;
     for (int i = 0; i < length; i++) {
         char c = string[i];
-        if (isPunctuationMark(c)) {
+        int j = isPunctuationMark(c);
+        if (j != -1) {
+            resultPunct[j]++;
             result++;
         }
     }
 }
 
 int main(int argc, char *argv[]) {
+    int punctMarks[23] =
+            {0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0};
     int result = 0;
     char *string = NULL;
     size_t length = 0;
@@ -67,11 +85,18 @@ int main(int argc, char *argv[]) {
         }
         length--;
         for (int i = 0; i < length; i++) {
-            if (isPunctuationMark(string[i])) {
+            int j = isPunctuationMark(string[i]);
+            if (j != -1) {
+                punctMarks[j]++;
                 result++;
             }
         }
-        printf("Number of punctuation marks in string: %d", result);
+        printf("Number of punctuation marks in string: %d\n", result);
+        for (int i = 0; i < 23; i++) {
+            if (punctMarks[i] != 0) {
+                printf("%c -- %d\n", fromIntToChar(i), punctMarks[i]);
+            }
+        }
     } else if (argc == 2) {
         if (strcmp(argv[1], "measuring") == 0) {
             srand(time(NULL));
@@ -85,18 +110,33 @@ int main(int argc, char *argv[]) {
             }
             time_t t_start = clock();
             for (int i = 0; i < 800000; i++) {
-                funcForTimeMeasuring(string1, length1);
+                if(i != 800000 - 1) {
+                    int punct[23];
+                    funcForTimeMeasuring(string1, length1, punct);
+                } else {
+                    funcForTimeMeasuring(string1, length1, punctMarks);
+                }
             }
             time_t t_end = clock();
 
             printf("\nThe task is done 800000 times in %d ms\n", (int) (difftime(t_end, t_start)) / 1000);
+            for (int i = 0; i < 23; i++) {
+                if (punctMarks[i] != 0) {
+                    printf("%c -- %d\n", fromIntToChar(i), punctMarks[i]);
+                }
+            }
             return 0;
         }
-        randomInput(&result);
-        printf("\nNumber of punctuation marks in string: %d", result);
+        randomInput(&result, punctMarks);
+        printf("\nNumber of punctuation marks in string: %d\n", result);
+        for (int i = 0; i < 23; i++) {
+            if (punctMarks[i] != 0) {
+                printf("%c -- %d\n", fromIntToChar(i), punctMarks[i]);
+            }
+        }
     } else if (argc == 3) {
-        result = inputFromFile(argv[1]);
-        outputToFile(argv[2], result);
+        result = inputFromFile(argv[1], punctMarks);
+        outputToFile(argv[2], result, punctMarks);
     }
 
     return 0;
