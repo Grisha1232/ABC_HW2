@@ -15,8 +15,8 @@ asdfl;kjasdf;lkjasdf;lkj
 ```
 ,./;'"!?asd()[]{}
 ```
-* C code: ![image](https://user-images.githubusercontent.com/58052549/201476493-6c249deb-a800-4816-bc56-02976ba6faf2.png)
-* Assembler: ![image](https://user-images.githubusercontent.com/58052549/201476452-70414a96-8de0-4c84-b6dc-c5a3a206f37b.png)
+* C code:  ![image](https://user-images.githubusercontent.com/58052549/201476493-6c249deb-a800-4816-bc56-02976ba6faf2.png)
+* Assembler:  ![image](https://user-images.githubusercontent.com/58052549/201476452-70414a96-8de0-4c84-b6dc-c5a3a206f37b.png)
 
 
 ## Test 3
