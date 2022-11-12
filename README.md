@@ -24,7 +24,7 @@
 ## Отчет на 4 балла:
 
 **1. Приведено решение задачи на С:**
-* [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)
+* [main.c](https://github.com/Grisha1232/ABC_HW2/blob/7d4e43970e7ab0c9fd1adc561a86e21c517584c5/C%20code/main.c)
 * [checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/checkFunc.c)
 * [fromIntToChar](https://github.com/Grisha1232/ABC_HW2/blob/2d3f19fdd03e04c6370ad2e7ab01b2abceaebaaa/C%20code/fromIntToChar.c)
 
@@ -62,7 +62,7 @@ gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 * randomInput(int* result, int resultPunct[])
 
 ### Итог: 
-* Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)  
+* Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/7d4e43970e7ab0c9fd1adc561a86e21c517584c5/C%20code/main.c)  
 * Добавлены комментарии в ассемблерную програму описывающую передачу данных через параметры [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)  
 
 ## Отчет на 6 баллов:
