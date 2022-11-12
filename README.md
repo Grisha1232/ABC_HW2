@@ -26,6 +26,7 @@
 **1. Приведено решение задачи на С:**
 * [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)
 * [checkFunc.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/checkFunc.c)
+* [fromIntToChar](https://github.com/Grisha1232/ABC_HW2/blob/2d3f19fdd03e04c6370ad2e7ab01b2abceaebaaa/C%20code/fromIntToChar.c)
 
 **2. Ассемблер не модифицированый (без опций отладки, с комментариями):**
 ```
@@ -35,6 +36,7 @@ gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 ```
 * [nonModmain.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
 * [nonModcheckFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/1ca575f339a62209288e3ad6f3c736adb7176784/Assembler%20non%20mod/nonModmain.s)
+* [nonModFromIntToChar.s]()
 
 **3. Ассемблер модифицированый (с комментариями):**
 * [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)
