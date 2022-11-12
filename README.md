@@ -41,6 +41,7 @@ gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 **3. Ассемблер модифицированый (с комментариями):**
 * [main.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/main.s)
 * [checkFunc.s](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/checkFunc.s)
+* [fromIntToChar.s](https://github.com/Grisha1232/ABC_HW2/blob/446168f3400750ab5bc399f8a77fe0fa21fd98de/Assembler/fromIntToChar.s)
 > [Список изменений](https://github.com/Grisha1232/ABC_HW2/blob/48b2c426b5356b4621fed315a6829a024582d122/Assembler/modification.md)
 
 
@@ -54,10 +55,11 @@ gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 
 **1. Сделаны функции с передачей данных через параметры:**  
 * isPunctuationMark(const char c)
-* inputFromConsole(char ***string, size_t *length)
-* inputFromFile(char* in)
-* outputToFile(char* out, const int result)
-* randomInput(int* result)
+* fromIntToChar(int value)
+* inputFromConsole(char **string, size_t *length)
+* inputFromFile(char* in, int resultPunct[])
+* outputToFile(char* out, const int result, const int resultPunct[])
+* randomInput(int* result, int resultPunct[])
 
 ### Итог: 
 * Использованы локальные переменные в файле [main.c](https://github.com/Grisha1232/ABC_HW2/blob/d045336a1c9d9b707635d15b5db7e82ad5852656/C%20code/main.c)  
@@ -66,9 +68,9 @@ gcc fromIntToChar.c -S -o nonModFromIntToChar.s
 ## Отчет на 6 баллов:
 
 **1. Заменены следующие переменные:**
-* Замена переменной i (C code) во всех циклах на регистр r12d
-* Замена переменной count (C code) в некоторых местах на регистр r12d
-* Замена переменной result (C code) в функции на регистр r12d
+* Замена переменной i (C code) во всех циклах на регистр r12d (или на r13d, т.к. r12d используется уже в другом месте тоже для переменной цикла i)
+* Замена переменной count (C code) в некоторых местах на регистр r13d
+* Замена переменной result (C code) в функции на регистр r14d
 
 ### Итог:
 * Использованы регистры для некоторых переменных в assembler
